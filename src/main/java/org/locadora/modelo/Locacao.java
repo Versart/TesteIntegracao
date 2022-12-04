@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,9 +25,9 @@ public class Locacao {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "aluguel_id")
-    private Aluguel aluguel;
+
+    @OneToMany(mappedBy = "locacao" , cascade = CascadeType.ALL)
+    private List<Aluguel> aluguel;
 
     @Column(name = "valor_aluguel")
     private Float valorAluguel;

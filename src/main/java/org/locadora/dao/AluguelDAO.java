@@ -6,6 +6,7 @@ import org.locadora.repository.AluguelRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.time.LocalDate;
 import java.util.List;
 
 public class AluguelDAO implements AluguelRepository {
@@ -38,5 +39,11 @@ public class AluguelDAO implements AluguelRepository {
     public List<Aluguel> listarAlugueisPagosComAtraso() {
         return entityManager.createQuery("select a from Aluguel a where a.dataPagamento > a.dataVencimento")
                 .getResultList();
+    }
+
+    public List<Aluguel> listarAlugueisEmAtraso() {
+        LocalDate hoje = LocalDate.now();
+        return entityManager.createQuery("select a from Aluguel a where :hoje > a.dataVencimento " +
+                "and a.dataPagamento = null ").setParameter("hoje", hoje).getResultList();
     }
 }

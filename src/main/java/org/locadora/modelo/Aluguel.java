@@ -28,8 +28,9 @@ public class Aluguel {
 
     private String obs;
 
-    @OneToMany(mappedBy = "aluguel", cascade = CascadeType.ALL)
-    private List<Locacao> locacoes;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Locacao locacao;
 
 
 }
